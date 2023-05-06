@@ -2,7 +2,7 @@ name: fix styling
 on:
   push:
 jobs:
-  fix-stly:
+  fix-style:
     runs-on: ubuntu-latest
     permissions:
       contents: write
