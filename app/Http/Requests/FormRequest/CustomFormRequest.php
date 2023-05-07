@@ -9,7 +9,6 @@ use Symfony\Component\HttpFoundation\Response;
 
 class CustomFormRequest extends FormRequest
 {
-
     /**
      * @param Validator $validator
      * @return void
