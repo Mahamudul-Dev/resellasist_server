@@ -52,7 +52,7 @@ if (!function_exists('apiResponse')) {
      * @param $response
      * @return JsonResponse
      */
-    function apiResponse($response)
+    function apiResponse($response): JsonResponse
     {
         return response()->json($response->except(['responseStatus']), $response['responseStatus']);
     }
