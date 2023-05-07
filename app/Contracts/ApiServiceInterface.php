@@ -3,6 +3,7 @@
 namespace App\Contracts;
 
 use Illuminate\{Http\Request, Support\Collection};
+
 interface ApiServiceInterface
 {
     /**
