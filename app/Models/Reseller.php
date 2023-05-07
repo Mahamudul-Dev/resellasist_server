@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models\Reseller;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;

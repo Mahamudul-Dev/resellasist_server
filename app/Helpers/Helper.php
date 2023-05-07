@@ -1,8 +1,7 @@
 <?php
 
 use Illuminate\Http\JsonResponse;
-use Illuminate\Support\Collection;
-use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\{Collection, Facades\Storage};
 use Symfony\Component\HttpFoundation\Response as ResponseAlias;
 
 if (!function_exists('successCollection')) {
@@ -14,8 +13,9 @@ if (!function_exists('successCollection')) {
     function successCollection(array $items = [], int $status = null): Collection
     {
         $res = [
-            'success' => true,
-            'status' => $status ?? ResponseAlias::HTTP_OK,
+            'status' => "success",
+            "error" => false,
+            'responseStatus' => $status ?? ResponseAlias::HTTP_OK,
         ];
 
         foreach ($items as $key => $item) {
@@ -35,8 +35,9 @@ if (!function_exists('failedCollection')) {
     function failedCollection(array $items = [], int $status = null): Collection
     {
         $res = [
-            'success' => false,
-            'status' => $status ?? ResponseAlias::HTTP_UNPROCESSABLE_ENTITY,
+            'status' => "failed",
+            "error" => true,
+            'responseStatus' => $status ?? ResponseAlias::HTTP_UNPROCESSABLE_ENTITY,
         ];
 
         foreach ($items as $key => $item) {
@@ -53,7 +54,7 @@ if (!function_exists('apiResponse')) {
      */
     function apiResponse($response): JsonResponse
     {
-        return response()->json($response->except(['status']), $response['status']);
+        return response()->json($response->except(['responseStatus']), $response['responseStatus']);
     }
 }
 if (!function_exists('upload')) {
