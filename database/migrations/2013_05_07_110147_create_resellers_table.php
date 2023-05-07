@@ -13,7 +13,7 @@ return new class () extends Migration {
         Schema::create('resellers', function (Blueprint $table) {
             $table->id();
             $table->string('reseller_name');
-            $table->string('profile_pic');
+            $table->string('profile_pic')->nullable();
             $table->string('email')->unique();
             $table->string('password');
             $table->string('contact');

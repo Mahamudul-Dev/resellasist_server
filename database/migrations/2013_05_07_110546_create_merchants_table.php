@@ -17,9 +17,9 @@ return new class () extends Migration {
             $table->string('nid');
             $table->string('owner_contact');
             $table->string('owner_name');
-            $table->string('owner_pic');
+            $table->string('owner_pic')->nullable();
             $table->string('merchant_name');
-            $table->string('merchant_logo');
+            $table->string('merchant_logo')->nullable();
             $table->timestamp('email_verified_at')->nullable();
             $table->rememberToken();
             $table->timestamps();

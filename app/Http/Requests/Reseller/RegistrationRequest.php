@@ -25,7 +25,7 @@ class RegistrationRequest extends CustomFormRequest
             'email' => 'required|min:2|max:30|email|unique:resellers',
             'password' => 'required|min:6|max:25',
             'reseller_name' => 'required|string|min:1|max:191',
-            'profile_pic' => 'required|mimes:jpeg,png,jpg,gif|max:2048',
+            'profile_pic' => 'nullable|mimes:jpeg,png,jpg,gif|max:2048',
             'contact' => 'required|string|min:1|max:191',
             'nid' => 'required|string|min:1|max:191',
         ];

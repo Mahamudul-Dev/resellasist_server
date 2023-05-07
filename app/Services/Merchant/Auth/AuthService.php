@@ -78,8 +78,13 @@ class AuthService
     {
         $data = collect($validated)->except(['password', 'owner_pic', 'merchant_logo'])->toArray();
         $data['password'] = Hash::make($validated['password']);
-        $data['owner_pic'] = upload($validated['owner_pic'], "merchant/pic");
-        $data['merchant_logo'] = upload($validated['merchant_logo'], "merchant/logo");
+        if (array_key_exists('owner_pic', $validated)) {
+            $data['owner_pic'] = upload($validated['owner_pic'], "merchant/pic");
+        }
+        if (array_key_exists('merchant_logo', $validated)) {
+            $data['merchant_logo'] = upload($validated['merchant_logo'], "merchant/logo");
+        }
+
         return $data;
     }
 
@@ -87,7 +92,7 @@ class AuthService
      * @param string $email
      * @return mixed
      */
-    private function generateAuthToken(string $email)
+    private function generateAuthToken(string $email): mixed
     {
         $user = Merchant::where('email', $email)->first();
         return $user->createToken('token', ['merchant'])->plainTextToken;

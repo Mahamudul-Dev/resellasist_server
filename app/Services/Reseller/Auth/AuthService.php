@@ -57,12 +57,17 @@ class AuthService
     private function setRegistrationData($validated): array
     {
         $data = collect($validated)->except(['password', 'profile_pic'])->toArray();
+
         $data['password'] = Hash::make($validated['password']);
-        $data['profile_pic'] = upload($validated['profile_pic'], "reseller/pic");
+
+        if (array_key_exists('profile_pic', $validated)) {
+            $data['profile_pic'] = upload($validated['profile_pic'], "reseller/pic");
+        }
+
         return $data;
     }
 
-    private function generateAuthToken(mixed $email)
+    private function generateAuthToken(string $email)
     {
         $user = Reseller::where('email', $email)->first();
         return $user->createToken('token', ['reseller '])->plainTextToken;

@@ -26,8 +26,8 @@ class RegistrationRequest extends CustomFormRequest
             'password' => 'required|min:6|max:25',
             'owner_name' => 'required|string|min:1|max:191',
             'merchant_name' => 'required|string|min:1|max:191',
-            'owner_pic' => 'required|mimes:jpeg,png,jpg,gif|max:2048',
-            'merchant_logo' => 'required|mimes:jpeg,png,jpg,gif|max:2048',
+            'owner_pic' => 'nullable|mimes:jpeg,png,jpg,gif|max:2048',
+            'merchant_logo' => 'nullable|mimes:jpeg,png,jpg,gif|max:2048',
             'owner_contact' => 'required|string|min:1|max:191',
             'nid' => 'required|string|min:1|max:191',
         ];
