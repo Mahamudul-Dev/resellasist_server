@@ -5,9 +5,7 @@ namespace App\Services\Reseller\Auth;
 use App\Models\Reseller;
 use Exception;
 use Illuminate\Http\Request;
-use Illuminate\Support\Collection;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\{Collection, Facades\DB, Facades\Hash};
 
 class AuthService
 {
