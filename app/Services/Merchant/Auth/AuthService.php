@@ -3,18 +3,16 @@
 namespace App\Services\Merchant\Auth;
 
 use App\Models\Merchant;
-use App\Models\Reseller;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\{Collection, Facades\Auth, Facades\DB, Facades\Hash};
-
 
 class AuthService
 {
     /**
      *
      */
-    const GUARD = 'merchant';
+    public const GUARD = 'merchant';
     /**
      * @var Collection
      */

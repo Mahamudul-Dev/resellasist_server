@@ -9,7 +9,7 @@ use Illuminate\Support\{Collection, Facades\Auth, Facades\DB, Facades\Hash};
 
 class AuthService
 {
-    const GUARD = 'reseller';
+    public const GUARD = 'reseller';
     private Collection $collection;
 
     public function register(Request $request): Collection
