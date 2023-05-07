@@ -5,7 +5,6 @@ use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Storage;
 use Symfony\Component\HttpFoundation\Response as ResponseAlias;
 
-
 if (!function_exists('successCollection')) {
     /**
      * @param array $items
