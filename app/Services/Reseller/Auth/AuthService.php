@@ -5,10 +5,11 @@ namespace App\Services\Reseller\Auth;
 use App\Models\Reseller;
 use Exception;
 use Illuminate\Http\Request;
-use Illuminate\Support\{Collection, Facades\DB, Facades\Hash};
+use Illuminate\Support\{Collection, Facades\Auth, Facades\DB, Facades\Hash};
 
 class AuthService
 {
+    public const GUARD = 'reseller';
     private Collection $collection;
 
     public function register(Request $request): Collection
@@ -32,6 +33,21 @@ class AuthService
         return $this->collection;
     }
 
+    public function login(Request $request): Collection
+    {
+        try {
+            $this->collection = Auth::guard(self::GUARD)->attempt($request->validated()) ? successCollection(
+                [
+                    'message' => trans('auth.success'),
+                    'token' => $this->generateAuthToken($request->validated()['email']),
+                ]
+            ) : failedCollection(['message' => trans('auth.failed')]);
+        } catch (Exception $ex) {
+            $this->collection = failedCollection(['errors' => $ex->getMessage()]);
+        }
+        return $this->collection;
+    }
+
     /*
   |--------------------------------------------------------------------------
   | class internal methods
@@ -44,6 +60,12 @@ class AuthService
         $data['password'] = Hash::make($validated['password']);
         $data['profile_pic'] = upload($validated['profile_pic'], "reseller/pic");
         return $data;
+    }
+
+    private function generateAuthToken(mixed $email)
+    {
+        $user = Reseller::where('email', $email)->first();
+        return $user->createToken('token', ['reseller '])->plainTextToken;
     }
 
 }
