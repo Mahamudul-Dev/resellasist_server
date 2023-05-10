@@ -22,7 +22,7 @@ class RegistrationRequest extends CustomFormRequest
     public function rules(): array
     {
         return [
-            'email' => 'required|min:2|max:30|email|unique:merchants',
+            'email' => 'required|min:2|max:50|email|unique:merchants',
             'password' => 'required|min:6|max:25',
             'owner_name' => 'required|string|min:1|max:191',
             'merchant_name' => 'required|string|min:1|max:191',

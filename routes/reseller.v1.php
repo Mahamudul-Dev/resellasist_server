@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\Reseller\Auth\AuthController;
+use App\Http\Controllers\Reseller\Auth\{AuthController, ProfileController};
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -18,4 +18,10 @@ use Illuminate\Support\Facades\Route;
 Route::controller(AuthController::class)->group(function () {
     Route::post('register', 'register');
     Route::post('login', 'login');
+});
+
+Route::controller(ProfileController::class)->middleware(['auth:sanctum', 'ability:reseller'])->group(function () {
+    Route::get('{id}', 'getProfile');
+    Route::post('{id}', 'updateProfile');
+    Route::delete('{id}', 'deleteProfile');
 });
