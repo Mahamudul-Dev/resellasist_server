@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\Merchant\Auth\{AuthController, ProfileController};
+use App\Http\Controllers\Merchant\{Category\CategoryController, Auth\AuthController, Auth\ProfileController};
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -25,3 +25,7 @@ Route::controller(ProfileController::class)->middleware(['auth:sanctum', 'abilit
         Route::post('{id}', 'updateProfile');
         Route::delete('{id}', 'deleteProfile');
     });
+
+Route::apiResources([
+    'category' => CategoryController::class,
+]);
