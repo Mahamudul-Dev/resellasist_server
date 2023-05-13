@@ -4,14 +4,14 @@ namespace App\Http\Requests\Merchant;
 
 use App\Http\Requests\FormRequest\CustomFormRequest;
 
-class LoginRequest extends CustomFormRequest
+class CategoryRequest extends CustomFormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
      */
     public function authorize(): bool
     {
-        return true;
+        return auth('sanctum')->check();
     }
 
     /**
@@ -22,8 +22,8 @@ class LoginRequest extends CustomFormRequest
     public function rules(): array
     {
         return [
-            'email' => 'required|min:2|max:50|email',
-            'password' => 'required|min:6|max:25',
+            'category_name' => 'required|min:2|max:255',
+            'type' => 'required|min:2|max:255',
         ];
     }
 }

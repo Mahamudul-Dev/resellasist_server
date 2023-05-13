@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\Merchant\Auth\AuthController;
+use App\Http\Controllers\Merchant\{Category\CategoryController, Auth\AuthController, Auth\ProfileController};
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -18,3 +18,14 @@ Route::controller(AuthController::class)->group(function () {
     Route::post('register', 'register');
     Route::post('login', 'login');
 });
+
+Route::controller(ProfileController::class)->middleware(['auth:sanctum', 'ability:merchant'])
+    ->group(function () {
+        Route::get('{id}', 'getProfile');
+        Route::post('{id}', 'updateProfile');
+        Route::delete('{id}', 'deleteProfile');
+    });
+
+Route::apiResources([
+    'category' => CategoryController::class,
+]);
