@@ -2,9 +2,10 @@
 
 namespace App\Http\Requests\Merchant;
 
+use App\Http\Requests\FormRequest\CustomFormRequest;
 use Illuminate\Foundation\Http\FormRequest;
 
-class CategoryRequest extends FormRequest
+class CategoryRequest extends CustomFormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
