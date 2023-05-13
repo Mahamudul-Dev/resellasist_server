@@ -6,9 +6,7 @@ use App\Http\Resources\MerchantResource;
 use App\Models\Merchant;
 use Exception;
 use Illuminate\Http\Request;
-use Illuminate\Support\Collection;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\{Collection, Facades\Hash};
 
 class ProfileService
 {
@@ -32,7 +30,6 @@ class ProfileService
     public function updateProfile($id, Request $request): Collection
     {
         try {
-            DB::beginTransaction();
             if ($profile = Merchant::find($id)) {
                 $data = $this->prepareProfileData($request->validated());
                 $profile->update($data);
@@ -44,9 +41,7 @@ class ProfileService
                     'error' => trans('resource.notFound', ['resource' => $this->resource])
                 ]);
             }
-            DB::commit();
         } catch (Exception $ex) {
-            DB::rollBack();
             $this->collection = failedCollection(['errors' => $ex->getMessage()]);
         }
         return $this->collection;
@@ -71,6 +66,25 @@ class ProfileService
 
 
         return $data;
+    }
+
+    public function deleteProfile($id): Collection
+    {
+        try {
+            if ($profile = Merchant::find($id)) {
+                $profile->delete();
+                $this->collection = successCollection([
+                    'message' => trans('resource.destroy', ['resource' => $this->resource])
+                ]);
+            } else {
+                $this->collection = failedCollection([
+                    'error' => trans('resource.notFound', ['resource' => $this->resource])
+                ]);
+            }
+        } catch (Exception $ex) {
+            $this->collection = failedCollection(['errors' => $ex->getMessage()]);
+        }
+        return $this->collection;
     }
 
 }

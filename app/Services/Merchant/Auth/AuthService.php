@@ -5,7 +5,7 @@ namespace App\Services\Merchant\Auth;
 use App\Models\Merchant;
 use Exception;
 use Illuminate\Http\Request;
-use Illuminate\Support\{Collection, Facades\Auth, Facades\DB, Facades\Hash};
+use Illuminate\Support\{Collection, Facades\Auth, Facades\Hash};
 
 class AuthService
 {
@@ -25,10 +25,8 @@ class AuthService
     public function register(Request $request): Collection
     {
         try {
-            DB::beginTransaction();
             $data = $this->setRegistrationData($request->validated());
             $user = Merchant::create($data);
-            DB::commit();
             $this->collection = successCollection([
                 'message' => __('auth.registration.success', ['resource' => 'Merchant']),
                 'merchant' => [
@@ -37,7 +35,6 @@ class AuthService
                 ],
             ]);
         } catch (Exception $ex) {
-            DB::rollBack();
             $this->collection = failedCollection(['errors' => $ex->getMessage()]);
         }
         return $this->collection;

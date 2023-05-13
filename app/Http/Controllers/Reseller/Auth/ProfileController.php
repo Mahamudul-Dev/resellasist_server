@@ -22,4 +22,9 @@ class ProfileController extends Controller
     {
         return apiResponse($this->service->updateProfile($id, $request));
     }
+
+    public function deleteProfile($id): JsonResponse
+    {
+        return apiResponse($this->service->deleteProfile($id));
+    }
 }
